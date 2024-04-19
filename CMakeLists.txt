@@ -18,7 +18,9 @@ set(GLFW ${PROJECT_SOURCE_DIR}/glxw/glfw338/include)
 include_directories(${GLFW})
 
 # Add source to this project's executable.
-add_executable (OpenGL "src/OpenGL.cpp" "src/OpenGL.h")
+file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h)
+add_executable (OpenGL ${SRC})
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/out)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET OpenGL PROPERTY CXX_STANDARD 20)
