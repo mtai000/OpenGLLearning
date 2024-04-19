@@ -7,6 +7,6 @@ using namespace std;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	cout << "Hello CMak" << endl;
 	return 0;
 }

@@ -11,6 +11,12 @@ endif()
 
 project ("OpenGL")
 
+set(GLEW ${PROJECT_SOURCE_DIR}/glxw/glew210/include)
+include_directories(${GLEW})
+
+set(GLFW ${PROJECT_SOURCE_DIR}/glxw/glfw338/include)
+include_directories(${GLFW})
+
 # Add source to this project's executable.
 add_executable (OpenGL "src/OpenGL.cpp" "src/OpenGL.h")
 
