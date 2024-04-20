@@ -9,21 +9,24 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("OpenGL")
+set(ProjName "MyOpenGL")
+project (${ProjName})
 
-set(GLEW ${PROJECT_SOURCE_DIR}/glxw/glew210/include)
-include_directories(${GLEW})
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+link_libraries(${OPENGL_LIBRARIES})
 
-set(GLFW ${PROJECT_SOURCE_DIR}/glxw/glfw338/include)
-include_directories(${GLFW})
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+link_libraries(${GLEW_LIBRARIES})
 
 # Add source to this project's executable.
 file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h)
-add_executable (OpenGL ${SRC})
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/out)
+add_executable (${ProjName} ${SRC})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET OpenGL PROPERTY CXX_STANDARD 20)
+  set_property(TARGET ${ProjName} PROPERTY CXX_STANDARD 20)
 endif()
 
+target_link_libraries(${ProjName} glfw)
 # TODO: Add tests and install targets if needed.

@@ -1,4 +1,4 @@
 # OpenGL
 
-glew210
-glfw388
+glew2.2
+glfw3.4
