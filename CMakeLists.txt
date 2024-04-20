@@ -22,6 +22,9 @@ link_libraries(${GLEW_LIBRARIES})
 
 # Add source to this project's executable.
 file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h)
+list(APPEND SOURCES
+"${PROJECT_SOURCE_DIR}/src/OpenGL.cpp"
+)
 add_executable (${ProjName} ${SRC})
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
