@@ -9,7 +9,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "GLSLLog.h"
+#include "Utils.h"
 
 
 using namespace std;
