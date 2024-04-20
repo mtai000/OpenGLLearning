@@ -6,6 +6,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "GLSLLog.h"
 
 
+using namespace std;
 // TODO: Reference additional headers your program requires here.
