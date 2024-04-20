@@ -9,6 +9,20 @@ GLuint renderingProgram;
 GLuint vao [numVAOs];
 GLSLLog *glog = new GLSLLog();
 
+string readShaderSource(const char* filepath)
+{
+	string content;
+	ifstream fileStream(filepath, ios::in);
+	string line = "";
+	while (!fileStream.eof())
+	{
+		getline(fileStream,line);
+		content.append(line + "\n");
+	}
+	fileStream.close();
+	return content;
+}
+
 GLuint createShaderProgram_2_2(){
 	const char *vshaderSource =
 		"#version 430 \n"
@@ -44,16 +58,22 @@ GLuint createShaderProgram() {
 	GLint fragCompiled;
 	GLint linked;
 
-	const char* vshaderSource =
-		"#version 430    \n"
-		"void main(void) \n"
-		"{ gl_Position = vec4(0.0, 0.0, 0.0, 1.0); }";
+	//const char *vshaderSource =
+	//	"#version 430 \n"
+	//	"void main(void) \n"
+	//	"{ gl_Position = vec4(0.0,0.0,0.0,1.0);}";
 
-	const char* fshaderSource =
-		"#version 430    \n"
-		"out vec4 color; \n"
-		"void main(void) \n"
-		"{ color = vec4(0.0, 0.0, 1.0, 1.0); }";
+	//const char *fshaderSource =
+	//	"#version 430 \n"
+	//	"out vec4 color; \n"
+	//	"void main(void) \n"
+	//	"{ if(gl_FragCoord.x < 300) color = vec4(1.0,0.0,0.0,1.0); \
+	//	   else color = vec4(0.0,1.0,0.0,1.0);}";
+	string verShaderStr = readShaderSource("vertShader.glsl");
+	string fraghaderStr = readShaderSource("fragShader.glsl");
+
+	const char* vshaderSource = verShaderStr.c_str();
+	const char* fshaderSource = fraghaderStr.c_str();
 
 	GLuint vShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fShader = glCreateShader(GL_FRAGMENT_SHADER);
