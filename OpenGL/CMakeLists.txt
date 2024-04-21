@@ -21,9 +21,9 @@ include_directories(${GLEW_INCLUDE_DIRS})
 link_libraries(${GLEW_LIBRARIES})
 
 # Add source to this project's executable.
-file(GLOB SRC ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h)
+file(GLOB SRC ${PROJECT_SOURCE_DIR}/*.cpp ${PROJECT_SOURCE_DIR}/*.h)
 list(APPEND SOURCES
-"${PROJECT_SOURCE_DIR}/src/OpenGL.cpp"
+"${PROJECT_SOURCE_DIR}/OpenGL.cpp"
 )
 add_executable (${ProjName} ${SRC})
 
