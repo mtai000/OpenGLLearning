@@ -1,52 +1,54 @@
 #include "games101.h"
+#ifdef _WIN32
 #include <Windows.h>
+#else
+#include <dlfcn.h>
+#endif
 
 
-int run00()
+#define LOGERROR(bErr,msg) if(bErr) {std::cerr << msg << std::endl;return 1;}
+
+int run(const wchar_t* lesson, int argc, const char** argv)
 {
-	HINSTANCE hDll = LoadLibrary(L"lesson00.dll");
-	if (hDll == NULL)
-	{
-		std::cerr << "Fail to load dll" << std::endl;
-		return 1;
-	}
-	typedef void (*func)();
-	func myFunction = (func)GetProcAddress(hDll, "lesson00");
-	if (myFunction == NULL)
-	{
-		std::cerr << "Fail to get function" << std::endl;
-		return 1;
-	}
-
-	myFunction();
-
-	FreeLibrary(hDll);
-}
-int run01(int argc, const char** argv)
-{
-	HINSTANCE hDll = LoadLibrary(L"lesson01.dll");
-	if (hDll == NULL)
-	{
-		std::cerr << "Fail to load dll" << std::endl;
-		return 1;
-	}
+#ifdef  _WIN32
+	HINSTANCE hDll = LoadLibrary(lesson);
+	LOGERROR(hDll == NULL, "Fail to load dll");
 	typedef void (*func)(int argc, const char** argv);
-	func myFunction = (func)GetProcAddress(hDll, "lesson01");
-	if (myFunction == NULL)
-	{
-		std::cerr << "Fail to get function" << std::endl;
+
+	func myFunction = (func)GetProcAddress(hDll, "run");
+	LOGERROR(myFunction == NULL, "Fail to get function");
+	myFunction(argc, argv);
+	FreeLibrary(hDll);
+#else
+	void myFunction(int, const char**);
+	void* handle = dlopen((const char*)lesson, RTLD_LAZY);
+	if (!handle) {
+		fprintf(stderr, "%s\n", dlerror());
 		return 1;
 	}
-
+	dlerror();
+	*(void**)(&myFunction) = dlsym(handle, "run");
+	char* error;
+	if ((error = dlerror()) != NULL)
+	{
+		fprintf(stderr, "%s\n", error);
+		dlclose(handle);
+		return 1;
+	}
 	myFunction(argc, argv);
+	if (dlclose(handle) != 0)
+	{
+		fprintf(stderr, "Error closing library\n");
+		return 1;
+	}
+#endif //  _WIN32
 
-	FreeLibrary(hDll);
 	return 0;
 }
 
-
 int main(int argc, const char** argv)
 {
-	run01(argc, argv);
+	const wchar_t* lesson = L"lesson01.dll";
+	run(lesson, argc, argv);
 	return 0;
 }

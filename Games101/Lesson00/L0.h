@@ -15,4 +15,4 @@
 //
 //};
 
-extern "C" _declspec(dllexport) int lesson00();
+extern "C" _declspec(dllexport) int lesson00(int argc, const char** argv);

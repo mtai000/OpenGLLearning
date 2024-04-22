@@ -1,7 +1,7 @@
 #include "L0.h"
 
 
-extern "C" _declspec(dllexport)  int lesson00() {
+extern "C" _declspec(dllexport)  int run(int argc, const char** argv) {
 
 	// Basic Example of cpp
 	std::cout << "Example of cpp \n";
