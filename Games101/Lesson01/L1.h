@@ -5,12 +5,15 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#ifdef _WIN32
-    #define LIBRARY extern "C" _declspec(dllexport) 
-#else
-    #define LIBRARY
-#endif
 
-
-int run(int argc, const char** argv);
-int lesson01(int argc, const char** argv);
+class  Lesson01
+{
+public:
+	Lesson01();
+	~Lesson01();
+	static int run(int argc, const char** argv);
+private:
+	static Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos);
+	static Eigen::Matrix4f get_model_matrix(float rotation_angle);
+	static Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar);
+};

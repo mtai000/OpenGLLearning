@@ -134,9 +134,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="games101.cpp" />
+    <ClCompile Include="Lesson00\L0.cpp" />
+    <ClCompile Include="Lesson01\L1.cpp" />
+    <ClCompile Include="Lesson01\rasterizer.cpp" />
+    <ClCompile Include="Lesson01\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="games101.h" />
+    <ClInclude Include="Lesson00\L0.h" />
+    <ClInclude Include="Lesson01\L1.h" />
+    <ClInclude Include="Lesson01\rasterizer.hpp" />
+    <ClInclude Include="Lesson01\Triangle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
