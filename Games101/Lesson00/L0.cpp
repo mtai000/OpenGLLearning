@@ -1,6 +1,11 @@
 #include "L0.h"
 
 
+int lesson00(int argc, const char** argv)
+{
+    return  run(argc,argv);
+}
+
 LIBRARY  int run(int argc, const char** argv) {
 
 	// Basic Example of cpp

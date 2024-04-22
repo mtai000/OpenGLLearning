@@ -12,15 +12,5 @@
 #endif
 
 
-//
-//class Lesson1
-//{
-//public:
-//	Lesson1();
-//	~Lesson1();
-//	static int run(int argc, const char** argv);
-//private:
-//
-//};
-
-LIBRARY int lesson01(int argc, const char** argv);
+int run(int argc, const char** argv);
+int lesson01(int argc, const char** argv);

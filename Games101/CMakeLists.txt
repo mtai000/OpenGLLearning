@@ -21,22 +21,14 @@ foreach(lesson_dir ${lesson_directories})
     add_subdirectory(${lesson_dir})
 endforeach()
 
-#link_directories(${BUILDPATH})
-#link_libraries(libLesson00.so libLesson01.so)
+#find_library(MYLIB NAMES libLesson00.so PATHS ${BUILDPATH})
+file(GLOB DLL_FILES ${BUILDPATH}/*.so)
+link_libraries(${BUILDPATH})
 
-#set(EXECUTABLE_OUTPUT_PATH ${BUILDPATH})
-#add_executable(${ProjName} games101.cpp)
+message(STATUS "Library is " ${DLL_FILES})
 
-# Add source to this project's executable.
-#link_directories(${DLLPATH})
-
-#file(GLOB DLL_FILES ${DLLPATH}/*.so)
-#link_libraries(${DLL_FILES})
-
-#set(EXECUTABLE_OUTPUT_PATH ${EXECPATH})
-#add_executable (${ProjName} games101.cpp)
-
-#target_link_libraries(${ProjName} "libLesson00.so")
+add_executable(${ProjName} games101.cpp)
+target_link_libraries(${ProjName} ${DLL_FILES})
 
 
 #if (CMAKE_VERSION VERSION_GREATER 3.12)

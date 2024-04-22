@@ -10,5 +10,8 @@ include_directories(${INCPATH})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BUILDPATH})
 
 add_library(${LESSON} SHARED ${SRC})
+#add_library(${LESSON} STATIC ${SRC})
+
 find_package(OpenCV REQUIRED)
 target_link_libraries(${LESSON} ${OpenCV_LIBRARIES})
+#target_link_libraries(${LESSON}s ${OpenCV_LIBRARIES})

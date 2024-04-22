@@ -39,7 +39,12 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     return projection;
 }
 
-LIBRARY int run(int argc, const char** argv)
+int lesson01(int argc, const char** argv)
+{
+    return run(argc,argv);
+}
+
+int run(int argc, const char** argv)
 {
     float angle = 0;
     bool command_line = false;

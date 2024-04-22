@@ -20,4 +20,6 @@
     #define LIBRARY
 #endif
 
-LIBRARY int lesson00(int argc, const char** argv);
+
+LIBRARY int run(int argc, const char** argv);
+int lesson00(int argc, const char** argv);
