@@ -13,7 +13,7 @@ endif()
 
 set(BUILDPATH ${PROJECT_SOURCE_DIR}/build)
 set(INCPATH /usr/include /usr/include/opencv4)
-include_directories(${INCPATH})
+include_directories(${INCPATH} ${PROJECT_SOURCE_DIR})
 #add_subdirectory(Lesson00)
 file(GLOB lesson_directories RELATIVE ${PROJECT_SOURCE_DIR} "Lesson*")
 
