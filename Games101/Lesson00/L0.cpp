@@ -1,14 +1,7 @@
 #include "L0.h"
 
-Lesson0::Lesson0()
-{
-}
 
-Lesson0::~Lesson0()
-{
-}
-
-int Lesson0::run() {
+extern "C" _declspec(dllexport)  int lesson00() {
 
 	// Basic Example of cpp
 	std::cout << "Example of cpp \n";
@@ -55,12 +48,12 @@ int Lesson0::run() {
 	// matrix scalar multiply i * 2.0
 	std::cout << "\ni * 2.0: \n";
 	std::cout << i * 2.0f << std::endl;
-	
-	
+
+
 	// matrix multiply i * j
 	std::cout << "\ni * j: \n";
 	std::cout << i * j << std::endl;
-	
+
 	// matrix multiply vector i * v
 	std::cout << "\ni * v: \n";
 	std::cout << i * v << std::endl;

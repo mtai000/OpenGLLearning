@@ -39,7 +39,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     return projection;
 }
 
-int Lesson1::run(int argc, const char** argv)
+extern "C" _declspec(dllexport)  int lesson01(int argc, const char** argv)
 {
     float angle = 0;
     bool command_line = false;
