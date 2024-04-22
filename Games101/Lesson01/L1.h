@@ -5,6 +5,12 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+#ifdef _WIN32
+    #define LIBRARY extern "C" _declspec(dllexport) 
+#else
+    #define LIBRARY
+#endif
+
 
 //
 //class Lesson1
@@ -17,4 +23,4 @@
 //
 //};
 
-extern "C" _declspec(dllexport) int lesson01(int argc, const char** argv);
+LIBRARY int lesson01(int argc, const char** argv);

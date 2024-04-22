@@ -1,11 +1,14 @@
-cmake_minimum_required(VERSION 3.10)
-project(Rasterizer)
+cmake_minimum_required (VERSION 3.8)
+set (LESSON Lesson01)
+project (${LESSON})
 
+find_package(Eigen3 REQUIRED)
+include_directories(EIGEN3_INCLUDE_DIR)
+
+aux_source_directory(./ SRC)
+include_directories(${INCPATH})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BUILDPATH})
+
+add_library(${LESSON} SHARED ${SRC})
 find_package(OpenCV REQUIRED)
-
-set(CMAKE_CXX_STANDARD 17)
-
-include_directories(/usr/local/include)
-
-add_executable(Rasterizer main.cpp rasterizer.hpp rasterizer.cpp Triangle.hpp Triangle.cpp)
-target_link_libraries(Rasterizer ${OpenCV_LIBRARIES})
+target_link_libraries(${LESSON} ${OpenCV_LIBRARIES})

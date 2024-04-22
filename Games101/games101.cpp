@@ -1,14 +1,22 @@
 #include "games101.h"
+
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <dlfcn.h>
 #endif
 
+#ifdef _WIN32
+	#define LESSONSTR const wchar_t*
+	LESSONSTR lesson = L"lesson01.so";
+#else
+	#define LESSONSTR const char*
+	LESSONSTR lesson = "libLesson00.so";
+#endif
 
 #define LOGERROR(bErr,msg) if(bErr) {std::cerr << msg << std::endl;return 1;}
 
-int run(const wchar_t* lesson, int argc, const char** argv)
+int run(int argc, const char** argv)
 {
 #ifdef  _WIN32
 	HINSTANCE hDll = LoadLibrary(lesson);
@@ -21,7 +29,7 @@ int run(const wchar_t* lesson, int argc, const char** argv)
 	FreeLibrary(hDll);
 #else
 	void myFunction(int, const char**);
-	void* handle = dlopen((const char*)lesson, RTLD_LAZY);
+	void* handle = dlopen(lesson, RTLD_LAZY);
 	if (!handle) {
 		fprintf(stderr, "%s\n", dlerror());
 		return 1;
@@ -48,7 +56,6 @@ int run(const wchar_t* lesson, int argc, const char** argv)
 
 int main(int argc, const char** argv)
 {
-	const wchar_t* lesson = L"lesson01.dll";
-	run(lesson, argc, argv);
+	run(argc, argv);
 	return 0;
 }

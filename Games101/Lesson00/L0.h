@@ -14,5 +14,10 @@
 //private:
 //
 //};
+#ifdef _WIN32
+    #define LIBRARY extern "C" _declspec(dllexport) 
+#else
+    #define LIBRARY
+#endif
 
-extern "C" _declspec(dllexport) int lesson00(int argc, const char** argv);
+LIBRARY int lesson00(int argc, const char** argv);
