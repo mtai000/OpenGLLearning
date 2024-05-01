@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for OpenGL, include source and define
+# CMakeList.txt : CMake project for OpenGL, include source and define
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
@@ -9,9 +9,11 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-set(ProjName "chapter2")
+set(ProjName "chapter4")
+
 project (${ProjName})
-set(penGL_GL_PREFERENCE GLVND)
+set(OpenGL_GL_PREFERENCE GLVND)
+
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 link_libraries(${OPENGL_LIBRARIES})
@@ -19,11 +21,17 @@ link_libraries(${OPENGL_LIBRARIES})
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 link_libraries(${GLEW_LIBRARIES})
+message(${GLEW_LIBRARIES})
+
+find_package(SOIL2 REQUIRED)
+include_directories(${SOIL2_INCLUDE_DIR})
+link_libraries(${SOIL2_LIBRARIES})
+
 
 # Add source to this project's executable.
 file(GLOB SRC ${PROJECT_SOURCE_DIR}/*.cpp ${PROJECT_SOURCE_DIR}/*.h)
 list(APPEND SOURCES
-"${PROJECT_SOURCE_DIR}/OpenGL.cpp"
+"${PROJECT_SOURCE_DIR}/main.cpp"
 )
 add_executable (${ProjName} ${SRC})
 

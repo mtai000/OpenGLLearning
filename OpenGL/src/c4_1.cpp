@@ -27,7 +27,7 @@ void Chapter4_1::setupVertices(void) {
 }
 
 void Chapter4_1::init(GLFWwindow * window) {
-	renderingProgram = Utils::createShaderProgram("vertShader.glsl", "fragShader.glsl");
+	renderingProgram = Utils::createShaderProgram("GLSL/4_1/vertShader.glsl", "GLSL/4_1/fragShader.glsl");
 	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 8.0f;
 	cubeLocX = 0.0f; cubeLocY = -2.0; cubeLocZ = 0.0f;
 	setupVertices();

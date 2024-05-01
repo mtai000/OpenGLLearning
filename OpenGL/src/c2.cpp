@@ -1,16 +1,7 @@
 ﻿// OpenGL.cpp : Defines the entry point for the application.
 //
 
-#include "OpenGL.h"
-
-#define numVAOs 1
-
-GLuint renderingProgram;
-GLuint vao[numVAOs];
-Utils* utils = new Utils();
-
-float x = 0.0f;
-float step = 0.01f;
+#include "c2.h"
 
 
 /*
@@ -116,17 +107,17 @@ GLuint createShaderProgram() {
 }
 */
 
-void init(GLFWwindow* windows)
+void Chapter2::init(GLFWwindow* windows)
 {
-	const char* vS = "vertShader.glsl";
-	const char* fS = "fragShader.glsl";
+	const char* vS = "GLSL/2/vertShader.glsl";
+	const char* fS = "GLSL/2/fragShader.glsl";
 	renderingProgram = Utils::createShaderProgram(vS, fS);
 	glGenVertexArrays(numVAOs, vao);
 	glBindVertexArray(vao[0]);
 }
 
 
-void display(GLFWwindow* window, double currentTime)
+void Chapter2::display(GLFWwindow* window, double currentTime)
 {
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -142,7 +133,7 @@ void display(GLFWwindow* window, double currentTime)
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
-int main(void)
+int Chapter2::run(void)
 {
 	if (!glfwInit()) { exit(EXIT_FAILURE); }
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
