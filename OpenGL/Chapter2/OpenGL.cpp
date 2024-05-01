@@ -136,6 +136,7 @@ void display(GLFWwindow* window, double currentTime)
 	if (x > 0.75f || x < -0.75f) step = -step;
 	GLuint offsetLoc = glGetUniformLocation(renderingProgram, "offset");
 
+	cout << currentTime << endl;
 	glUseProgram(renderingProgram);
 	glProgramUniform1f(renderingProgram, offsetLoc, x);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -149,6 +150,7 @@ int main(void)
 	GLFWwindow* window = glfwCreateWindow(600, 600, "Chapter2-program1", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) { exit(EXIT_FAILURE); }
+
 	glfwSwapInterval(1);
 
 	init(window);

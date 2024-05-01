@@ -9,9 +9,9 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-set(ProjName "MyOpenGL")
+set(ProjName "chapter2")
 project (${ProjName})
-
+set(penGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 link_libraries(${OPENGL_LIBRARIES})
@@ -31,5 +31,5 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${ProjName} PROPERTY CXX_STANDARD 20)
 endif()
 
-target_link_libraries(${ProjName} glfw)
+target_link_libraries(${ProjName} glew)
 # TODO: Add tests and install targets if needed.

@@ -13,7 +13,7 @@ Eigen::Matrix4f Lesson01::get_view_matrix(Eigen::Vector3f eye_pos)
 
     return view;
 }
-
+#define DEG2RAD(deg) ((deg)*3.1415926/180)
 Eigen::Matrix4f Lesson01::get_model_matrix(float rotation_angle)
 {
     Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
@@ -21,6 +21,12 @@ Eigen::Matrix4f Lesson01::get_model_matrix(float rotation_angle)
     // TODO: Implement this function
     // Create the model matrix for rotating the triangle around the Z axis.
     // Then return it.
+
+    double rad = DEG2RAD(rotation_angle);
+    model << cos(rad), -sin(rad), 0, 0,
+             sin(rad), cos(rad), 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1;
 
     return model;
 }
@@ -35,6 +41,8 @@ Eigen::Matrix4f Lesson01::get_projection_matrix(float eye_fov, float aspect_rati
     // TODO: Implement this function
     // Create the projection matrix for the given parameters.
     // Then return it.
+
+
 
     return projection;
 }
@@ -59,7 +67,7 @@ int Lesson01::run(int argc, const char** argv)
 
     Eigen::Vector3f eye_pos = {0, 0, 5};
 
-    std::vector<Eigen::Vector3f> pos{{2, 0, -2}, {0, 2, -2}, {-2, 0, -2}};
+    std::vector<Eigen::Vector3f> pos{{3, -3.5, -2}, {3, 1, -2}, {-3, 3, -2}};
 
     std::vector<Eigen::Vector3i> ind{{0, 1, 2}};
 
@@ -99,13 +107,15 @@ int Lesson01::run(int argc, const char** argv)
         cv::imshow("image", image);
         key = cv::waitKey(10);
 
-        std::cout << "frame count: " << frame_count++ << '\n';
+        //std::cout << "frame count: " << frame_count++ << '\n';
 
         if (key == 'a') {
-            angle += 10;
+            angle += 1;
+            std::cout << angle << '\n';
         }
         else if (key == 'd') {
-            angle -= 10;
+            angle -= 1;
+            std::cout << angle << '\n';
         }
     }
 

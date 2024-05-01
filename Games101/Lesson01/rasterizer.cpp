@@ -183,7 +183,7 @@ void rst::rasterizer::draw(rst::pos_buf_id pos_buffer, rst::ind_buf_id ind_buffe
 
 void rst::rasterizer::rasterize_wireframe(const Triangle& t)
 {
-    draw_line(t.c(), t.a());
+    draw_line(t.a(), t.c());
     draw_line(t.c(), t.b());
     draw_line(t.b(), t.a());
 }
