@@ -2,17 +2,6 @@
 
 
 #include "Utils.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "Base.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <cmath>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <SOIL2/SOIL2.h>
 
 class Chapter5_1 : public ChapterBase {
 private:
@@ -37,5 +26,4 @@ public:
 	Chapter5_1();
 	~Chapter5_1();
 	int run(void);
-
 };
