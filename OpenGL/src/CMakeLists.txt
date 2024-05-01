@@ -9,7 +9,7 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-set(ProjName "chapter4")
+set(ProjName "OpenGL")
 
 project (${ProjName})
 set(OpenGL_GL_PREFERENCE GLVND)
@@ -27,7 +27,6 @@ find_package(SOIL2 REQUIRED)
 include_directories(${SOIL2_INCLUDE_DIR})
 link_libraries(${SOIL2_LIBRARIES})
 
-
 # Add source to this project's executable.
 file(GLOB SRC ${PROJECT_SOURCE_DIR}/*.cpp ${PROJECT_SOURCE_DIR}/*.h)
 list(APPEND SOURCES
@@ -39,5 +38,5 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${ProjName} PROPERTY CXX_STANDARD 20)
 endif()
 
-target_link_libraries(${ProjName} glew)
+target_link_libraries(${ProjName} ${GLEW_LIBRARIES} ${OPENGL_LIBRARIES} glfw soil2)
 # TODO: Add tests and install targets if needed.
