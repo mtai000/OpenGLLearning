@@ -36,6 +36,12 @@
     <ClCompile Include="c2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="c6_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="c6_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="c2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c6_1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c6_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

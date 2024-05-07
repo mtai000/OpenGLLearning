@@ -137,6 +137,8 @@
     <ClCompile Include="c4_2.cpp" />
     <ClCompile Include="c4_3.cpp" />
     <ClCompile Include="c5_1.cpp" />
+    <ClCompile Include="c6_1.cpp" />
+    <ClCompile Include="c6_2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
@@ -147,6 +149,8 @@
     <ClInclude Include="c4_2.h" />
     <ClInclude Include="c4_3.h" />
     <ClInclude Include="c5_1.h" />
+    <ClInclude Include="c6_1.h" />
+    <ClInclude Include="c6_2.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

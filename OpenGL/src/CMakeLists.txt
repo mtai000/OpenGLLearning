@@ -39,4 +39,6 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 target_link_libraries(${ProjName} ${GLEW_LIBRARIES} ${OPENGL_LIBRARIES} glfw soil2)
+file(COPY "${CMAKE_SOURCE_DIR}/GLSL" DESTINATION "${CMAKE_BINARY_DIR}")
+
 # TODO: Add tests and install targets if needed.
