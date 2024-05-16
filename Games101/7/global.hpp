@@ -17,13 +17,13 @@ extern int g_spp;
 extern int g_size;
 
 inline int stringToInt(const std::string& str) {
-int num = 0;
-for (auto c : str)
-{
-    assert(c <= '9' && c >= '0');
-    num += num * 10 + c - '0';
-}
-return num;
+    int num = 0;
+    for (auto c : str)
+    {
+        assert(c <= '9' && c >= '0');
+        num = num * 10 + c - '0';
+    }
+    return num;
 }
 
 
