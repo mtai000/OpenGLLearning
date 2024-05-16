@@ -14,15 +14,7 @@ int g_size = 512;
 int g_spp = 4;
 
 //
-int stringToInt(const std::string& str) {
-    int num = 0;
-    for (auto c : str)
-    {
-        assert(c <= '9' && c >= '0');
-        num += num * 10 + c - '0';
-    }
-    return num;
-}
+
 
 int main(int argc, char** argv)
 { 

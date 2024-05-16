@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <random>
-
+#include <cassert>
 #undef M_PI
 
 #define M_PI 3.141592653589793f
@@ -15,6 +15,16 @@ const float kInfinity = std::numeric_limits<float>::max();
 
 extern int g_spp;
 extern int g_size;
+
+inline int stringToInt(const std::string& str) {
+int num = 0;
+for (auto c : str)
+{
+    assert(c <= '9' && c >= '0');
+    num += num * 10 + c - '0';
+}
+return num;
+}
 
 
 inline float clamp(const float &lo, const float &hi, const float &v)

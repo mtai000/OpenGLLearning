@@ -393,7 +393,7 @@ namespace objl
         template <class T>
         inline const T & getElement(const std::vector<T> &elements, std::string &index)
         {
-            int idx = std::stoi(index);
+            int idx = stringToInt(index);
             if (idx < 0)
                 idx = int(elements.size()) + idx;
             else
@@ -1111,7 +1111,7 @@ namespace objl
                 // Illumination
                 if (algorithm::firstToken(curline) == "illum")
                 {
-                    tempMaterial.illum = std::stoi(algorithm::tail(curline));
+                    tempMaterial.illum = stringToInt(algorithm::tail(curline));
                 }
                 // Ambient Texture Map
                 if (algorithm::firstToken(curline) == "map_Ka")
