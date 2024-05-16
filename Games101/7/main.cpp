@@ -6,16 +6,23 @@
 #include "global.hpp"
 #include <chrono>
 
-#define SIZE 4096
 // In the main function of the program, we create the scene (create objects and
 // lights) as well as set the options for the render (image width and height,
 // maximum recursion depth, field-of-view, etc.). We then call the render
 // function().
+int g_size = 512;
+int g_spp = 4;
 int main(int argc, char** argv)
-{
+{ 
+
+    if (argc > 1)
+    {
+        g_size = atoi(argv[1]);
+        g_spp = atoi(argv[2]);
+    }
 
     // Change the definition here to change resolution
-    Scene scene(SIZE, SIZE);
+    Scene scene(g_size, g_size);
     
     Material* red = new Material(DIFFUSE, Vector3f(0.0f));
     red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
@@ -42,10 +49,10 @@ int main(int argc, char** argv)
 
     
     std::cout << argc << std::endl;
-    if(argc == 2)
+    if(argc == 4)
     {
         std::cout << "BVH" << std::endl;
-        std::string para = argv[1];
+        std::string para = argv[3];
         std::transform(para.begin(),para.end(),para.begin(),::toupper);
         if(para == "BVH")
             scene.buildBVH();

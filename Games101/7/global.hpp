@@ -1,13 +1,21 @@
-#pragma once
+#ifndef GLOBAL_HPP
+#define GLOBAL_HPP
+
 #include <iostream>
 #include <cmath>
 #include <random>
 
 #undef M_PI
+
 #define M_PI 3.141592653589793f
 
 extern const float  EPSILON;
 const float kInfinity = std::numeric_limits<float>::max();
+
+
+extern int g_spp;
+extern int g_size;
+
 
 inline float clamp(const float &lo, const float &hi, const float &v)
 { return std::max(lo, std::min(hi, v)); }
@@ -51,3 +59,4 @@ inline void UpdateProgress(float progress)
     std::cout << "] " << int(progress * 100.0) << " %\r";
     std::cout.flush();
 };
+#endif

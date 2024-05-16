@@ -257,6 +257,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
         inter.m = m;                //材料
         inter.obj=this;
         inter.coords = ray(t_tmp);  //光传播t单位  o+td;
+        inter.emit = m->getEmission();
     }
     return inter;
 }
