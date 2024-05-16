@@ -12,13 +12,24 @@
 // function().
 int g_size = 512;
 int g_spp = 4;
+
+//
+int stringToInt(const std::string& str) {
+    int num = 0;
+    for (auto c : str)
+    {
+        assert(c <= '9' && c >= '0');
+        num += num * 10 + c - '0';
+    }
+    return num;
+}
+
 int main(int argc, char** argv)
 { 
-
     if (argc > 1)
     {
-        g_size = atoi(argv[1]);
-        g_spp = atoi(argv[2]);
+        g_size = stringToInt(argv[1]);
+        g_spp = stringToInt(argv[2]);
     }
 
     // Change the definition here to change resolution
