@@ -68,10 +68,11 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
 {
     // TO DO Implement Path Tracing Algorithm here
     Intersection intersection = intersect(ray);
-    
+
+    Vector3f light = Vector3f(0);
     //deal with light source
     if(intersection.emit.norm() > 0.0)
-        return Vector3f(1);
+        light = intersection.m->getEmission() ;
     if(!intersection.happened)
         return Vector3f(0);
     
@@ -139,7 +140,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
 
     
    
-    auto hitColor = L_indir + L_dir;
+    auto hitColor = L_indir + L_dir + light;
     hitColor.x = (clamp(0,1,hitColor.x));
     hitColor.y = (clamp(0,1,hitColor.y));
     hitColor.z = (clamp(0,1,hitColor.z));

@@ -11,7 +11,7 @@
 inline float deg2rad(const float& deg) { return deg * M_PI / 180.0; }
 
 #define SHOWPROGRESS true
-#define USE_MULTI_THREAD false
+#define USE_MULTI_THREAD true
 #define USE_OPENMP false
 const float EPSILON = 0.00001;
 std::mutex g_mutex;
