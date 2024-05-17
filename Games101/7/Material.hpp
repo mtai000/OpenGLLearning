@@ -15,7 +15,7 @@ private:
     // Compute reflection direction
     Vector3f reflect(const Vector3f &I, const Vector3f &N) const
     {
-        return l = I - 2 * dotProduct(I, N) * N;
+        return I - 2 * dotProduct(I, N) * N;
     }
 
     // Compute refraction direction using Snell's law
