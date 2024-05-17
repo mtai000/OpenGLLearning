@@ -6,14 +6,17 @@
 #include <thread>
 #include <mutex>
 #include "Renderer.hpp"
+#include <omp.h>
 
 inline float deg2rad(const float& deg) { return deg * M_PI / 180.0; }
 
 #define SHOWPROGRESS true
-#define USE_MULTI_THREAD true
+#define USE_MULTI_THREAD false
+#define USE_OPENMP false
 const float EPSILON = 0.00001;
 std::mutex g_mutex;
 int totals = 0;
+omp_lock_t lock;
 
 void render_thread(const Scene& scene, std::vector<Vector3f>& framebuffer, int spp, int y_beg, int y_end)
 {
@@ -27,22 +30,33 @@ void render_thread(const Scene& scene, std::vector<Vector3f>& framebuffer, int s
 		for (uint32_t i = 0; i < scene.width; ++i) {
 			// generate primary ray direction
 			m = j * scene.width + i;
-
+			
+			#ifdef USE_OPENMP
+			#pragma omp parallel for
+			#endif
 			for (int k = 0; k < spp; k++) {
-				float x = (2 * (i + 0.5) / (float)scene.width - 1) *
+				float x = (2 * (i + get_random_float()) / (float)scene.width - 1) *
 					imageAspectRatio * scale;
-				float y = (1 - 2 * (j + 0.5) / (float)scene.height) * scale;
+				float y = (1 - 2 * (j + get_random_float()) / (float)scene.height) * scale;
 				Vector3f dir = normalize(Vector3f(-x, y, 1));
 				framebuffer[m] += scene.castRay(Ray(eye_pos, dir), 0) / spp;
 			}
 
 			m++;
 		}
-		if (SHOWPROGRESS) {
+		if(SHOWPROGRESS)
+		if (!USE_OPENMP) {
 			g_mutex.lock();
 			totals++;
 			UpdateProgress(totals / (float)scene.height);
 			g_mutex.unlock();
+		}
+		else
+		{
+			omp_set_lock(&lock);
+			totals++;
+			UpdateProgress(totals / (float)scene.height);
+			omp_unset_lock(&lock);
 		}
 	}
 }
@@ -55,13 +69,15 @@ void Renderer::Render(const Scene& scene)
 	std::vector<Vector3f> framebuffer(scene.width * scene.height);
 
 	int numThreads = std::thread::hardware_concurrency();
-	std::cout << "Thread = " << numThreads << std::endl;
 	int lines = scene.height / numThreads + 1;
 	std::vector<std::thread> jobs;
 
-	if (USE_MULTI_THREAD)
+	std::cout << "Size = " << g_size << std::endl;
+	if (USE_MULTI_THREAD && !USE_OPENMP)
 	{
+		std::cout << "USE Multi Thread = " << numThreads << std::endl;
 		std::cout << "SPP = " << g_spp << std::endl;
+		
 		for (int i = 0; i < numThreads; i++)
 		{
 			int y_begin = i * lines;
@@ -74,8 +90,12 @@ void Renderer::Render(const Scene& scene)
 
 		UpdateProgress(1.f);
 	}
-	else
+	else 
 	{
+		#ifdef USE_OPENMP
+		if(USE_OPENMP)
+		std::cout << "USE OPENMP" << std::endl;
+		#endif
 		render_thread(scene, framebuffer, g_spp, 0, scene.height);
 	}
 

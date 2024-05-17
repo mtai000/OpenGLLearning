@@ -74,30 +74,75 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         return Vector3f(1);
     if(!intersection.happened)
         return Vector3f(0);
-        
+    
+    Vector3f L_dir = Vector3f(0);
+    Vector3f L_indir = Vector3f(0);
+
     Vector3f wo = normalize(-ray.direction);
     Vector3f p = intersection.coords;
     Vector3f N = normalize(intersection.normal);
 
-    float pdf_light;
-    Intersection inter;
-    sampleLight(inter,pdf_light);
-    Vector3f x = inter.coords;
-    Vector3f ws = normalize(x-p);
-    Vector3f NN = normalize(inter.normal);
+   
+    switch (intersection.m->getType())
+    {
+        case MIRROR:
+        {
+            if(get_random_float() < RussianRoulette)
+            {
+                //反射光方向
+                Vector3f reflectDir = intersection.m->sample(ray.direction,N).normalized();
+                //定义反射光ray
+                Ray reflectRay(intersection.coords,reflectDir);
+                // 求反射光交点
+                Intersection nextInter = intersect(reflectRay);
+                if(nextInter.happened)
+                {
+                    auto reflect_wo = (-reflectRay.direction).normalized();
+                    auto t_pdf = intersection.m->pdf(ray.direction,reflectDir,N);
+                    if(t_pdf > EPSILON)
+                    {
+                        // 镜面材质计算
+                        auto mirrorEval = intersection.m->eval(ray.direction, reflectDir,N);
+                        auto dot = dotProduct(reflectDir,N);
+                        L_indir = castRay( reflectRay ,depth + 1) * mirrorEval
+                                    * dot
+                                    / (t_pdf * RussianRoulette);
+                    }
+                }
+            }
+            break;
+        }
+        default:
+        {
+            float pdf_light;
+            Intersection inter;
+            sampleLight(inter,pdf_light);
+            Vector3f x = inter.coords;
+            Vector3f ws = normalize(x-p);
+            Vector3f NN = normalize(inter.normal);
+            
+            if((intersect(Ray(p,ws)).coords - x).norm() < 0.01)
+            {
+                L_dir = inter.emit * intersection.m->eval(wo,ws,N)*dotProduct(ws,N) * dotProduct(-ws,NN) / (((x-p).norm()* (x-p).norm()) * pdf_light);
+            }
+
+            if(get_random_float() < RussianRoulette)
+            {
+                Vector3f wi = intersection.m->sample(wo,N).normalized();
+                auto t_pdf = intersection.m->pdf(wo,wi,N);
+                if(t_pdf > EPSILON)
+                    L_indir = castRay(Ray(p,wi),depth + 1) * intersection.m->eval(wi,wo,N) * dotProduct(wi,N) / (t_pdf * RussianRoulette);
+            }
+            break;
+        }
+    }
+
     
-    Vector3f L_dir = Vector3f(0);
-    if((intersect(Ray(p,ws)).coords - x).norm() < 0.01)
-    {
-        L_dir = inter.emit * intersection.m->eval(wo,ws,N)*dotProduct(ws,N) * dotProduct(-ws,NN) / (((x-p).norm()* (x-p).norm()) * pdf_light);
-    }
+   
+    auto hitColor = L_indir + L_dir;
+    hitColor.x = (clamp(0,1,hitColor.x));
+    hitColor.y = (clamp(0,1,hitColor.y));
+    hitColor.z = (clamp(0,1,hitColor.z));
 
-    Vector3f L_indir = Vector3f(0);
-    if(get_random_float() < RussianRoulette)
-    {
-        Vector3f wi = intersection.m->sample(wo,N);
-        L_indir = castRay(Ray(p,wi),depth) * intersection.m->eval(wi,wo,N) * dotProduct(wi,N) / (intersection.m->pdf(wi,wo,N) * RussianRoulette);
-    }
-
-    return L_indir + L_dir;
+    return hitColor;
 }

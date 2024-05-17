@@ -12,10 +12,7 @@
 // function().
 int g_size = 512;
 int g_spp = 4;
-
 //
-
-
 int main(int argc, char** argv)
 { 
     if (argc > 1)
@@ -36,19 +33,35 @@ int main(int argc, char** argv)
     Material* light = new Material(DIFFUSE, (8.0f * Vector3f(0.747f+0.058f, 0.747f+0.258f, 0.747f) + 15.6f * Vector3f(0.740f+0.287f,0.740f+0.160f,0.740f) + 18.4f *Vector3f(0.737f+0.642f,0.737f+0.159f,0.737f)));
     light->Kd = Vector3f(0.65f);
 
+
+    // 镜面
+    Material* mirror = new Material(MIRROR , Vector3f(0.0f));
+    mirror->Kd = Vector3f(0.0,0.0,0.0);
+    mirror->ior = 40.f;
+
+    // 微表面
+    Material* microface = new Material(MICROFACE , Vector3f(0.f));
+    microface->Ks = Vector3f(0.65, 0.65, 0.65);
+    microface->Kd = Vector3f(0.3, 0.3, 0.3);
+    microface->ior = 0.5;
+    microface->Roughness = 0;
+
+    Sphere sphere(Vector3f(200, 100, 200), 100, microface);
+
     MeshTriangle floor("../models/cornellbox/floor.obj", white);
     MeshTriangle shortbox("../models/cornellbox/shortbox.obj", white);
-    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", white);
+    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", mirror);
     MeshTriangle left("../models/cornellbox/left.obj", red);
     MeshTriangle right("../models/cornellbox/right.obj", green);
     MeshTriangle light_("../models/cornellbox/light.obj", light);
 
     scene.Add(&floor);
-    scene.Add(&shortbox);
+    //scene.Add(&shortbox);
     scene.Add(&tallbox);
     scene.Add(&left);
     scene.Add(&right);
     scene.Add(&light_);
+    scene.Add(&sphere);
 
     
     std::cout << argc << std::endl;
