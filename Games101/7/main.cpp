@@ -46,11 +46,11 @@ int main(int argc, char** argv)
     microface->ior = 0.5;
     microface->Roughness = 0;
 
-    Sphere sphere(Vector3f(200, 100, 200), 100, microface);
+    Sphere sphere(Vector3f(200, 100, 200), 100, mirror);
 
     MeshTriangle floor("../models/cornellbox/floor.obj", white);
     MeshTriangle shortbox("../models/cornellbox/shortbox.obj", white);
-    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", mirror);
+    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", white);
     MeshTriangle left("../models/cornellbox/left.obj", red);
     MeshTriangle right("../models/cornellbox/right.obj", green);
     MeshTriangle light_("../models/cornellbox/light.obj", light);
